@@ -1,7 +1,8 @@
 export default class HttpClient {
-    constructor(baseURL, authErrorEventBus){
+    constructor(baseURL, authErrorEventBus, getCsrtToken){
         this.baseURL = baseURL
         this.authErrorEventBus = authErrorEventBus;
+        this.getCsrtToken = getCsrtToken;
     }
 
     async fetch(url, options){
@@ -10,6 +11,7 @@ export default class HttpClient {
             headers: {
                 'Content-Type': 'application/json',
                 ...options.headers,
+                '_csrf-token': this.getCsrtToken(),
             },
             credentials: 'include',
         });
